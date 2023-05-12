@@ -1033,3 +1033,57 @@ echo "$HOME"
 echo "$HOME"
 echo ""$HOME""
 echo "'$HOME'"
+echo >>>>
+|
+echo "dsfsd
+cat | cat |ls
+echo dss
+echo dss>b
+cat b
+export
+echo salut | ls | cat <gjdgs
+echo "sds'
+cat <<e cat >b
+|||
+>>|
+echo "$HOME"
+echo "'$HOME'"
+echo "'$HOME'" | wc
+./minishell
+./minishell
+./minishell
+cat <b
+cat <b | wc
+cat <b | wc |ls
+cat <b | wc |ls | cat >b|cat <b
+echo dsad
+echo dsad$HOME
+echo dsad$HOME | wc -l
+echo dsad$HOME"
+echo adsas
+echo adsas>b
+echo adsas>b|cat b
+echo adsas>b|cat <b
+env >b | cat <b | wc
+env >b | cat <b | wc | ls
+./minishell
+echo asda
+echo "asda"
+echo "$asda"
+echo $asda
+cat | cat | ls
+cat | cat | ls
+echo sds$jsdfs
+cat <<s >b | cat <b
+sa
+cat <<s >b | cat <b
+cat dsfd
+cat <dsfd
+cat <b
+cat <history.log 
+cat <history.log | wc
+|
+>>>>
+cat|ls
+./minishell
+./minishell
