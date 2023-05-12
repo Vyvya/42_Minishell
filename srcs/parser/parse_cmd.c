@@ -9,8 +9,8 @@ static int	build_word_red_cmd(t_cmd **new_cmd, t_token *tok_h)
 	{
 		if (tok_h->id == TOK_PIPE)
 			break ;
-		if (tok_h->id == TOK_REDIR_OUT || tok_h->id == TOK_REDIR_IN \
-		|| tok_h->id == TOK_REDIR_OUT_APPEND || tok_h->id == TOK_HEREDOC)
+		if (tok_h->id == TOK_R_OUT || tok_h->id == TOK_R_IN \
+		|| tok_h->id == TOK_R_OUT_APP || tok_h->id == TOK_R_HDOC)
 		{
 		// 	if (tok_h->next == NULL || tok_h->next->id != TOK_WORD)
 		// 	{

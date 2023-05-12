@@ -80,12 +80,13 @@ SRCS =	srcs/main.c \
 		srcs/execute/ppl_new.c \
 		srcs/execute/ppl_utils.c \
 		srcs/execute/cmd_word.c \
-		srcs/execute/cmd_redir_all.c \
-		srcs/execute/cmd_redir_in.c \
-		srcs/execute/cmd_redir_out.c \
-		srcs/execute/cmd_redir_append.c \
-		srcs/execute/cmd_heredoc.c \
-		srcs/execute/cmd_find_path.c \
+		srcs/execute/cmd_red_all.c \
+		srcs/execute/cmd_red_in.c \
+		srcs/execute/cmd_red_out.c \
+		srcs/execute/cmd_red_append.c \
+		srcs/execute/cmd_red_heredoc.c \
+		srcs/execute/cmd_path_find.c \
+		srcs/execute/cmd_path_search.c \
 		srcs/execute/init_pipes.c \
 		srcs/execute/execute.c \
 		srcs/execute/execute_heredoc.c \

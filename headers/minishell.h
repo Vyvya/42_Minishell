@@ -163,11 +163,12 @@ void		close_fds(t_ppl **ppl);
 void		close_red_fds(t_ppl **ppl);
 
 int			search_path(t_ppl *ppl, char **cmd_path);
+int	find_curr_dir(char **path);
 char		*find_path(char **mini_env_array);
 
-void		*ft_handle_word(t_ppl **new_ppl, t_token *cmd_word);
-int			ft_count_args_cmd_word(t_token *ptr_cmd_word);
-int			ft_handle_redir_all(t_ppl **new_ppl, t_token *ptr_cmd_red);
+void		*handle_word(t_ppl **new_ppl, t_token *cmd_word);
+int			count_args_cmd_word(t_token *ptr_cmd_word);
+int			ft_handle_red_all(t_ppl **new_ppl, t_token *ptr_cmd_red);
 int			ft_handle_heredoc(t_ppl **new_ppl, t_token **ptr_cmd_red);
 int			ft_handle_redir_in(t_ppl **new_ppl, \
 t_token **ptr_cmd_red);

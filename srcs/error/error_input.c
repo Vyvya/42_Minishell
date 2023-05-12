@@ -41,8 +41,8 @@ int	handle_input_error(t_token **token_head)
 	}
 	while (tok_h != NULL)
 	{
-		if (tok_h->id == TOK_REDIR_OUT_APPEND || tok_h->id == TOK_HEREDOC || \
-			tok_h->id == TOK_REDIR_OUT || tok_h->id == TOK_REDIR_IN)
+		if (tok_h->id == TOK_R_OUT_APP || tok_h->id == TOK_R_HDOC || \
+			tok_h->id == TOK_R_OUT || tok_h->id == TOK_R_IN)
 		{
 			if (tok_h->next == NULL || tok_h->next->id != TOK_WORD)
 			{
@@ -68,7 +68,7 @@ int	handle_input_error(t_token **token_head)
 			// tok_h->id = TOK_ERROR;
 			return (1);
 		}
-		if (tok_h != NULL && (tok_h->id == TOK_REDIR_OUT || tok_h->id == TOK_REDIR_IN || tok_h->id == TOK_REDIR_OUT_APPEND || tok_h->id == TOK_HEREDOC)
+		if (tok_h != NULL && (tok_h->id == TOK_R_OUT || tok_h->id == TOK_R_IN || tok_h->id == TOK_R_OUT_APP || tok_h->id == TOK_R_HDOC)
 		 && (tok_h->next && tok_h->next->id == TOK_PIPE))
 		{
 			printf("2\n");

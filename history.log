@@ -1087,3 +1087,65 @@ cat <history.log | wc
 cat|ls
 ./minishell
 ./minishell
+cat | cat|ls|echo asdsa
+cat <<e >b|cat <b
+env
+./minishell
+env
+export var
+env
+export
+unset var
+export
+env
+env | wc
+export var=dbfwe
+export var=dbfwe sd
+export
+export var=dbfwe sd
+env
+cat | cat | ls
+echo sdfs>b
+echo sdfs>b|cat <b
+echo sdfs>b|cat <b|export
+echo sdfs>b|cat <b|export | wc
+cat <<e >b | cat <b
+cat <<e >b | cat <c
+cat | cat | ls
+echo asd
+echo asd>b
+echo asd>b | wc
+cat | cat \LS
+ECHO DSASDA
+echo asa| env
+echo asa| env | wc
+echo asa| env | wc |cat >b
+echo asa| env | wc |cat >b | cat <b
+cat | cat | ls
+echo asad
+echo $asad
+echo $?
+echo $
+export >b
+export >b|cat <c
+export >b|cat <c | wc
+cat sdfs
+cat ,b
+cat <b
+cat <b |wc
+|
+echo ada
+echo $HOME
+echo sds
+echo asda>b
+\
+|
+cat nfwe
+cat nfwe |ls
+cat <<e
+cat <<e|wc
+echo dsfs>b
+echo dsfs>b |cat <b
+echo dsfs>b |cat <b |wc
+cat <<e >b
+cat <<e >b | cat <c

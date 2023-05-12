@@ -27,52 +27,45 @@ void	close_fds(t_ppl **ppl)
 
 void execute_parent(t_ppl **ppl)
 {
-    t_ppl *pp_curr = *ppl;
-    int i = 0;
+	t_ppl *pp_curr = *ppl;
+	int i = 0;
 
-
-    close_all_fds(ppl);
-
-    while (pp_curr && i < pp_curr->ppl_idx)
+	close_all_fds(ppl);
+	while (pp_curr && i < pp_curr->ppl_idx)
 	{
-		
-        if (pp_curr->pp_pid != 0)
+		if (pp_curr->pp_pid != 0)
 		{
-            waitpid(pp_curr->pp_pid, &pp_curr->pp_exit, 0);
-
-            if (WIFSIGNALED(pp_curr->pp_exit)) {
-                g_exit_status = WTERMSIG(pp_curr->pp_exit);
-            }
-
-            if (WIFEXITED(pp_curr->pp_exit)) {
-                g_exit_status = WEXITSTATUS(pp_curr->pp_exit);
-            }
-        }
-
-        if (pp_curr->next)
+			waitpid(pp_curr->pp_pid, &pp_curr->pp_exit, 0);
+			if (WIFSIGNALED(pp_curr->pp_exit))
+				g_exit_status = WTERMSIG(pp_curr->pp_exit);
+			if (WIFEXITED(pp_curr->pp_exit))
+				g_exit_status = WEXITSTATUS(pp_curr->pp_exit);
+		}
+		if (pp_curr->next)
 		{
-            i++;
-            pp_curr = pp_curr->next;
-        } else
-		{
-            break;
-        }
-    }
+			i++;
+			pp_curr = pp_curr->next;
+		}
+		else
+			break ;
+	}
 }
 
 void	dup_fds(t_ppl **ppl)
 {
-	// printf("1ok\n");
 	if((*ppl)->pp_infile != STDIN_FILENO)
 		dup2((*ppl)->pp_infile, STDIN_FILENO);
-	// printf("2ok\n");
 	if((*ppl)->pp_outfile != STDOUT_FILENO)
-	{
-		// printf("3ok\n");
 		dup2((*ppl)->pp_outfile, STDOUT_FILENO);
-	}
-	// printf("4ok\n");
 	close_fds(ppl);
+}
+
+void	dup_red_fds(t_ppl **ppl)
+{
+	if ((*ppl)->pp_fd_out != STDOUT_FILENO)
+		dup2((*ppl)->pp_fd_out, STDOUT_FILENO);
+	if ((*ppl)->pp_fd_in != 0)
+		dup2((*ppl)->pp_fd_in, STDIN_FILENO);
 }
 
 void	close_red_fds(t_ppl **ppl)
@@ -82,7 +75,6 @@ void	close_red_fds(t_ppl **ppl)
 	if ((*ppl)->pp_fd_in != -1)
 		close((*ppl)->pp_fd_in);
 }
-
 
 int	execute_to_builtin(t_ppl *ppl)
 {
@@ -103,10 +95,11 @@ int	execute_path_cmd(t_ppl *ppl)
 		dup_fds(&ppl);
 		if (ppl->pp_red_status == 1)
 		{
-			if (ppl->pp_fd_out != STDOUT_FILENO)
-				dup2(ppl->pp_fd_out, STDOUT_FILENO);
-			if (ppl->pp_fd_in != 0)
-				dup2(ppl->pp_fd_in, STDIN_FILENO);
+			dup_red_fds(&ppl);
+			// if (ppl->pp_fd_out != STDOUT_FILENO)
+			// 	dup2(ppl->pp_fd_out, STDOUT_FILENO);
+			// if (ppl->pp_fd_in != 0)
+			// 	dup2(ppl->pp_fd_in, STDIN_FILENO);
 		}
 		if (check_if_builtin(ppl->pp_first_cmd) == 0)
 		{
@@ -121,6 +114,7 @@ int	execute_path_cmd(t_ppl *ppl)
 			g_exit_status = ppl->pp_exit;
 			ft_putstr_fd("minishell_VH: ", STDERR_FILENO);
 			msg_error(ft_strjoin(ppl->pp_first_cmd, ": command not found"), errno);
+			exit(0);
 		}
 		close_all_fds(&ppl);
 		execve(cmd_path, (ppl)->ppl_cmd, (ppl)->pp_arr_env);

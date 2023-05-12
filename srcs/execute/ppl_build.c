@@ -2,7 +2,7 @@
 
 static int	handle_redir(t_ppl *new_ppl, t_token *cmd_red)
 {
-	if (ft_handle_redir_all(&new_ppl, cmd_red) == 1)
+	if (ft_handle_red_all(&new_ppl, cmd_red) == 1)
 	{
 		new_ppl->pp_red_status = 1;
 		return (1);
@@ -58,7 +58,7 @@ t_ppl	*build_ppl(t_cmd **cmd_head, int cmd_n, t_envnode *mini_env)
 			return (NULL);
 		fill_env_ppl(new_ppl, mini_env, pp_idx);
 		if (cmd_ptr->cmd_word)
-			ft_handle_word(&new_ppl, cmd_ptr->cmd_word);
+			handle_word(&new_ppl, cmd_ptr->cmd_word);
 		if (cmd_ptr->cmd_red)
 		{
 			if (!handle_redir(new_ppl, cmd_ptr->cmd_red))

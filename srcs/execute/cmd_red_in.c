@@ -1,11 +1,11 @@
 #include "../../headers/minishell.h"
 
-int ft_handle_redir_in(t_ppl **new_ppl, t_token **ptr_cmd_red)
+int	ft_handle_redir_in(t_ppl **new_ppl, t_token **ptr_cmd_red)
 {
 	int	fd_in;
 
 	fd_in = 0;
-	if ((*ptr_cmd_red)->id == TOK_REDIR_IN)
+	if ((*ptr_cmd_red)->id == TOK_R_IN)
 	{
 		if (access((*ptr_cmd_red)->next->content, R_OK) != 0 && errno != ENOENT)
 		{
@@ -17,16 +17,13 @@ int ft_handle_redir_in(t_ppl **new_ppl, t_token **ptr_cmd_red)
 		else
 		{
 			fd_in = open((*ptr_cmd_red)->next->content, O_RDONLY);
-			printf("FD fd_in after open infile: %d\n\n" RS, fd_in);
 			if (fd_in == -1)
 			{
 				printf(GREEN "error\n" RS);
 				return (-1);
 			}
 		}
-		
 	}
 	(*new_ppl)->pp_fd_in = fd_in;
-	printf("FD pp_infile after open infile: %d\n\n" RS, (*new_ppl)->pp_fd_in);
 	return (1);
 }

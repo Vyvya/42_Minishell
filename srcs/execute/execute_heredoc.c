@@ -1,6 +1,6 @@
 #include "../../headers/minishell.h"
 
-int execute_heredoc(t_ppl **ppl)
+int	execute_heredoc(t_ppl **ppl)
 {
 	int		fd[2];
 	char	*line;
@@ -14,7 +14,7 @@ int execute_heredoc(t_ppl **ppl)
 		if (line == NULL || ft_strcmp((*ppl)->pp_heredoc_eof, line) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		ft_putendl_fd(line, fd[1]);
 		free(line);

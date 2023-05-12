@@ -1,10 +1,10 @@
 #include "../../headers/minishell.h"
 
 // t_delim delimiters[] = {
-//     {">>", 2, TOK_REDIR_OUT_APPEND},
-//     {"<<", 2, TOK_HEREDOC},
-// 	{">", 1, TOK_REDIR_OUT},
-//     {"<", 1, TOK_REDIR_IN},
+//     {">>", 2, TOK_R_OUT_APP},
+//     {"<<", 2, TOK_R_HDOC},
+// 	{">", 1, TOK_R_OUT},
+//     {"<", 1, TOK_R_IN},
 //     {"|", 1, TOK_PIPE}
 // 	};
 
@@ -22,10 +22,10 @@ char	*check_delim(char **p, t_token **head)
 	unsigned long	i;
 
 	i = 0;
-	delimiters[0] = (t_delim){">>", 2, TOK_REDIR_OUT_APPEND};
-	delimiters[1] = (t_delim){"<<", 2, TOK_HEREDOC};
-	delimiters[2] = (t_delim){">", 1, TOK_REDIR_OUT};
-	delimiters[3] = (t_delim){"<", 1, TOK_REDIR_IN};
+	delimiters[0] = (t_delim){">>", 2, TOK_R_OUT_APP};
+	delimiters[1] = (t_delim){"<<", 2, TOK_R_HDOC};
+	delimiters[2] = (t_delim){">", 1, TOK_R_OUT};
+	delimiters[3] = (t_delim){"<", 1, TOK_R_IN};
 	delimiters[4] = (t_delim){"|", 1, TOK_PIPE};
 	delim = delimiters;
 	while (delim->delim_str && (i < sizeof(delimiters) / sizeof(t_delim)))
