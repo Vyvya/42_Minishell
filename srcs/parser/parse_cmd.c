@@ -2,6 +2,9 @@
 
 static int	build_word_red_cmd(t_cmd **new_cmd, t_token *tok_h)
 {
+	char	*msg;
+
+	msg = NULL;
 	while (tok_h != NULL)
 	{
 		if (tok_h->id == TOK_PIPE)
@@ -9,16 +12,26 @@ static int	build_word_red_cmd(t_cmd **new_cmd, t_token *tok_h)
 		if (tok_h->id == TOK_REDIR_OUT || tok_h->id == TOK_REDIR_IN \
 		|| tok_h->id == TOK_REDIR_OUT_APPEND || tok_h->id == TOK_HEREDOC)
 		{
-			if (tok_h->next == NULL || tok_h->next->id != TOK_WORD)
-			{
-				ft_putstr_fd("minishell_VH: syntax error near unexpected token `newline'\n", STDERR_FILENO);
-				// ft_putstr_fd(R "ERROR input REDIR\n" RS, STDERR_FILENO);
-				// ft_putstr_fd("ERROR input PIPE 2\n", STDERR_FILENO);
-				g_exit_status = 258;
-			// msg_error("error near unexpected token", 258); //syntax error (near unexpected token `|')
-			// tok_h->id = TOK_ERROR;
-				return (-1);
-			}
+		// 	if (tok_h->next == NULL || tok_h->next->id != TOK_WORD)
+		// 	{
+		// 		handle_input_red_error(&tok_h);
+		// 		return (-1);
+		// 	}
+			// if (tok_h->next == NULL || tok_h->next->id != TOK_WORD)
+			// {
+
+			// 	msg = ft_strjoin("minishell_VH: syntax error near unexpected token `", tok_h->content);
+			// 	ft_putstr_fd(msg, STDERR_FILENO);
+			// 	ft_putstr_fd("\'\n", STDERR_FILENO);
+			// 	g_exit_status = 258;
+			// 	// ft_putstr_fd("minishell_VH: syntax error near unexpected token `newline'\n", STDERR_FILENO);
+			// 	// ft_putstr_fd(R "ERROR input REDIR\n" RS, STDERR_FILENO);
+			// 	// ft_putstr_fd("ERROR input PIPE 2\n", STDERR_FILENO);
+			// 	g_exit_status = 258;
+			// // msg_error("error near unexpected token", 258); //syntax error (near unexpected token `|')
+			// // tok_h->id = TOK_ERROR;
+			// 	return (-1);
+			// }
 			ft_token_list_addback(&(*new_cmd)->cmd_red, \
 			new_token(tok_h->content, tok_h->id));
 			ft_token_list_addback(&(*new_cmd)->cmd_red, \

@@ -37,10 +37,10 @@ char	*expand_token(char **content, t_envnode *mini_env)
 			printf(LB "EXPAND: prefix %s\n" RS, prefix);
 
 			// var_len = ft_strcspn(p + 1, " $;|/&><\n");
-			var_name = ft_substr(p + 1, 0, ft_strcspn(p + 1, " $;|/&><\n"));
+			var_name = ft_substr(p + 1, 0, ft_strcspn(p + 1, " $;|/\'&><\n"));
 			printf(LB "EXPAND: var_name %s\n" RS, var_name);
 
-			var_value = mini_getenv(var_name, ft_strcspn(p + 1, " $;|/&><\n"), mini_env);
+			var_value = mini_getenv(var_name, ft_strcspn(p + 1, " $;|/\'&><\n"), mini_env);
 			printf(LB "EXPAND: var_value %s\n" RS, var_value);
 
 			if (!var_value)
@@ -52,7 +52,7 @@ char	*expand_token(char **content, t_envnode *mini_env)
 			expanded_content = ft_strjoin_free(expanded_content, var_value);
 			printf(LB "EXPAND: expanded_content %s\n" RS, expanded_content);
 
-			*content = p + ft_strcspn(p + 1, " $;|/&><\n") + 1;
+			*content = p + ft_strcspn(p + 1, " $;|/\'&><\n") + 1;
 			ft_strdel(&prefix);
 			if (*content == p + 1)
 			{
@@ -105,9 +105,9 @@ void	*expand_token_list(t_token **token_head, t_envnode *mini_env)
 		{
 			printf("ok\n");
 			s_trimmed = ft_strtrim(curr->content, "\'");
-			// my_free(curr->content);
-			curr->content = s_trimmed;
-			// my_free(s_trimmed);
+			my_free(curr->content);
+			curr->content = ft_strdup(s_trimmed);
+			my_free(s_trimmed);
 			curr->id = TOK_WORD;
 		}
 		curr = curr->next;

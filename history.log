@@ -940,3 +940,96 @@ echo '$HOME'
 echo '$HOME'
 echo "'$HOME'"
 echo '$HOME'
+echo "$HOME"
+echo '$HOME'
+echo '$HOME'
+echo '$HOME'
+echo "'$HOME'"
+echo '"$HOME"'
+echo "'"$HOME"'"
+echo "'$HOME'"
+echo "'"$HOME"'"
+echo "'$HOME'"
+echo "'$HOME'"
+echo "'$$HOME'"
+echo $$HOME
+echo $
+echo "$$HOME"
+echo '$$HOME'
+echo $HOME$HOME$LESS
+echo "'$HOME'"
+echo "'$HOME'$PATH"
+echo "'$HOME'$PATH
+echo "hcdsch
+echo 'hcdsch
+echo "sds
+echo "sds
+|
+||
+<<<
+<<<>>
+>>>
+>>
+echo cuwco>>>>
+echo cuwco>>>> dwwe
+echo cuwco>>>> |
+echo sdjfs
+echo sdjfs"
+echo sdjfs'
+echo sdjfs'"'
+echo sdjfs'"'"
+echo s>
+echo s>>
+echo s>>>
+echo s>>> |
+echo >>> |
+echo >>>|
+echo >>>
+echo >>>
+echo >>>|
+echo >>>
+echo <<<<
+echo >>>
+echo >>> |
+echo > |
+echo > wde|
+echo > wde
+echo edfwe> wde
+echo edfwe>>wde
+>>>
+>>> |
+echo >>>
+echo >>>
+echo >>>>
+echo >>>>>>>
+echo <<<<<
+echo <<<<<>>>
+echo <<<<<>>> |
+echo >>>
+echo >>> |
+|
+>>>|
+echo >>
+>>
+<<
+cat <<
+cat <<
+echo >>
+echo >>|
+>>>
+....
+<<<
+<<<|
+|
+||||
+||
+|>
+echo $?
+||
+echo $?
+<<<
+echo $?
+echo "$HOME"
+echo "$HOME"
+echo ""$HOME""
+echo "'$HOME'"

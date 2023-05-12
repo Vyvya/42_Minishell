@@ -4,10 +4,11 @@ void execute(t_cmd *cmd, int cmd_num, t_envnode *mini_env)
 {
 	t_ppl	*ppl;
 
+	print_cmd_list(cmd);
 	ppl = build_ppl(&cmd, cmd_num, mini_env);
 	if (ppl == NULL)
 		return ;
-	// print_ppl_list(ppl, ppl->ppl_idx);
+	print_ppl_list(ppl, ppl->ppl_idx);
 	my_free(cmd);
 	ter_attr_handler_off();
 	signals_default();

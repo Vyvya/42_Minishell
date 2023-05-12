@@ -188,6 +188,7 @@ void		print_ppl_list(t_ppl *ppl_list, int ppl_idx);
 
 /*ERROR*/
 int		handle_input_error(t_token **token_head);
+int	handle_input_red_error();
 int			error_msg(const char *msg);
 int			error_mem(void);
 void		msg_error(char *error, int errnum);
