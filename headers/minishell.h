@@ -153,9 +153,10 @@ t_ppl	*build_ppl(t_cmd **cmd_head, int cmd_n, t_envnode *mini_env);
 void		*init_pipe(t_ppl **ppl, int ppl_idx);
 void		execute(t_cmd *cmd, int cmd_num, t_envnode *mini_env);
 int			execute_single_builtin(t_ppl *ppl);
-int			execute_multi_cmd(t_ppl *ppl);
+int			execute_pipe_cmd(t_ppl *ppl);
+void	execute_parent(t_ppl **ppl);
 int			execute_kid(t_ppl *ppl);
-int			execute_path_cmd(t_ppl *ppl);
+int			execute_fork_cmd(t_ppl *ppl);
 int			execute_to_builtin(t_ppl *ppl);
 int			execute_heredoc(t_ppl **ppl);
 void		wait_execution(t_ppl **ppl);
@@ -176,9 +177,21 @@ int			ft_handle_redir_append(t_ppl **new_ppl, \
 t_token **ptr_cmd_red);
 int			ft_handle_redir_out(t_ppl **new_ppl, t_token **ptr_cmd_red);
 
+void	dup_fds(t_ppl **ppl);
+void	dup_red_fds(t_ppl **ppl);
+void	dup_saved_stds(t_ppl **ppl);
+void	dup2_saved_stds(t_ppl **ppl);
+void	close_red_fds(t_ppl **ppl);
+void	close_fds(t_ppl **ppl);
+void	close_all_fds(t_ppl **ppl);
+void	close_saved_stds(t_ppl **ppl);
+
 void		close_fd(t_ppl **ppl);
 void		close_all_fds(t_ppl **ppl);
 void		wait_status(t_ppl *ppl);
+
+void	finish_exec(t_ppl **ppl);
+void	finish_multi_exec(t_ppl **p_ppl);
 
 void		free_ppl(t_ppl **new_ppl, int *i);
 void		free_one_ppl(t_ppl **new_ppl);

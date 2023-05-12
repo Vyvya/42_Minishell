@@ -18,7 +18,7 @@ void	execute(t_cmd *cmd, int cmd_num, t_envnode *mini_env)
 	}
 	else
 	{
-		if (execute_multi_cmd(ppl))
+		if (execute_pipe_cmd(ppl))
 			msg_error("error executing multi_cmd: ", errno);
 	}
 	signal_at_beginning();

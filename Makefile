@@ -59,6 +59,7 @@ SRCS =	srcs/main.c \
 		srcs/lexer/interp_word.c \
 		srcs/lexer/interp_space.c \
 		srcs/token/token_list.c \
+		srcs/token/token_expand_list.c \
 		srcs/token/token_expand.c \
 		srcs/token/token_space.c \
 		srcs/token/token_merge.c \
@@ -90,9 +91,10 @@ SRCS =	srcs/main.c \
 		srcs/execute/init_pipes.c \
 		srcs/execute/execute.c \
 		srcs/execute/execute_heredoc.c \
-		srcs/execute/execute_multi_cmd.c \
-		srcs/execute/execute_kid.c \
-		srcs/execute/execute_utils.c \
+		srcs/execute/execute_cmd.c \
+		srcs/execute/execute_dup.c \
+		srcs/execute/execute_close_fds.c \
+		srcs/execute/execute_finish.c \
 		srcs/print/print_token.c \
 		srcs/print/print_cmd.c \
 		srcs/print/print_env.c \

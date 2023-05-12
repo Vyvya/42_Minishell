@@ -1149,3 +1149,132 @@ echo dsfs>b |cat <b
 echo dsfs>b |cat <b |wc
 cat <<e >b
 cat <<e >b | cat <c
+cat sdksld>b
+cat <<e
+cat <<e >b |cat <c |wc
+cat | cat | ls
+cat | cat |ls
+echo sdkks
+echo sdkks| wc
+env
+env>b | cat <b |wc
+echo asda>b
+echo asda>b | cat <b
+env | wc
+env | wc |ls
+cat <<e >B | CAT <B
+echo sdfdas>b
+cat <b
+cat | cat | ls
+ls | wc
+|
+cat <b
+cat <c | wc
+cat | cat \ls
+cat | cat |ls
+echo $HOME
+echo "$HOME"
+cat <<e
+cat <<e>b | cat <c
+cat <<e
+cat | cat | ls
+cat | cat | ls | wc
+export
+export var
+cat | cat | ls
+echo sdlsja
+echo sdlsja$HOME
+env
+env | sort | grep "F" | wc
+env | sort | grep "F" | wc > b| cat <b
+env | sort | grep "F" | wc > b| cat <c
+env | sort | grep "F" | wc > c| cat <b
+cat | cat | cat | ls
+env >b | cat b
+export >b | cat b
+echo sdfs>b
+cat b
+cat <b | wc
+cat <<e
+cat <<e >b | cat <c | wc
+cat c
+export
+export >b | env | wc
+cat <b
+cat <b | grep "V" |wc 
+cat <b | grep "V" |wc | ls
+cat <c
+cat <<e >b | cat <c | export 
+cat <<e >b | cat <c | export >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+norminette
+cat <<e >b | cat <c | env >b | ls | wc
+echo sdsd
+echo sdsd$HOME
+echo sdsd$HOME"$HOME"
+echo sdsd$HOME"$HOME" | env >b|cat <b
+cat <<e >b | cat <c | env >b | ls | wc
+export>b |grep "T" |wc
+echo '""$HOME""'
+echo "'$HOME'"
+echo "'$HOME'$PATH"
+echo <<<<<>>> |
+echos dsd>a>b>c>d
+echo dsd>a>b>c>d
+cat a
+cat b
+cat c
+cat d
+echos dsd>a>b>c>d
+echos dsd>a>b>c>d
+cat d
+echo dsd>a>b>c>d
+cat d
+cat <d
+echo "'$HOME'$PATH"
+echo "'$HOME'"
+echo "'$HOME'$PATH"
+echo "'$HOME'"
+echo "'$HOME'"
+echo '$HOME'
+echo '$HOME'
+echo "'$HOME'"
+echo "'$HOME'"
+echo "'$HOME'"
+echo "'$HOME'$PATH"
+echo '""$HOME""'
+cat <<e >b | cat <c | env >b | ls | wc
+cat <<e >b | cat <c | env >b | ls | wc
+echo "'$HOME'"
+echo "'$HOME'$PATH"
+echo "'$HOME'$PATH"
+cat <<e >b | cat <c | env >b | ls | wc
+env >b | cat <b | wc | ls
+"'$HOME'"
+cat "'$HOME'"
+echo "'$HOME'"
+echo "'$HOME'$PATH"
+cat <<e >b | cat <c | env >b | ls | wc
+env | sort | grep "F" | wc > c| cat <b
+cat | cat | ls
+echos dsd>a>b>c>d
+echo dsd>a>b>c>d
+cat d
+cat a
+cat b
+cat <<e >b | cat <c | env >b | ls | wc
+echo "'$HOME'$PATH"
+echo "'$HOME'$PATH"
+echo "'$HOME'$PATH"
+echo "'$HOME'"
+cho '""$HOME""'
+echo '""$HOME""'
+e"cho" $HOME
+e'cho' $HOME
+e'c'"ho" $HOME
+e'c' "ho" $HOME

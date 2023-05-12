@@ -88,7 +88,7 @@ void	dup_fds(t_ppl **ppl)
 	close_fds(ppl);
 }
 
-int	execute_path_cmd(t_ppl *ppl)
+int	execute_fork_cmd(t_ppl *ppl)
 {
 	char	*cmd_path;
 	// t_cmd	*cmd;
@@ -169,7 +169,7 @@ static void	*init_pipe(t_ppl **ppl, int ppl_idx) //, int *num_pipes
 	return (0);
 }
 
-int	execute_multi_cmd(t_ppl *ppl)
+int	execute_pipe_cmd(t_ppl *ppl)
 {
 	int	i;
 	int	saved_stdin;
@@ -186,7 +186,7 @@ int	execute_multi_cmd(t_ppl *ppl)
 	{
 		// if (ppl->ppl_cmd)
 		// {
-		// 	printf("DISPLAY COMMAND execute_multi_cmd\n");
+		// 	printf("DISPLAY COMMAND execute_pipe_cmd\n");
 		// 	for (int i = 0; ppl->ppl_cmd[i]; i++)
 		// 		printf("%s\n", ppl->ppl_cmd[i]);
 		// 	printf("=================\n");
@@ -246,7 +246,7 @@ int	execute_multi_cmd(t_ppl *ppl)
 			// 	dup2(ppl->pp_infile, ppl->pp_fd_in);
 			// close_fds(&ppl);
 		}
-		if (execute_path_cmd(ppl)) //execute_path_cmd
+		if (execute_fork_cmd(ppl)) //execute_fork_cmd
 			msg_error("error executing path_cmd: ", errno);
 		if (ppl->next)
 			ppl = ppl->next;
