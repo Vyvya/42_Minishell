@@ -23,7 +23,6 @@ void	prompt(char	*line, t_envnode *mini_env)
 		printf("exit\n");
 		free(line);
 		exit(0);
-		return ;
 	}
 	if (ft_strlen(line) > 0)
 	{

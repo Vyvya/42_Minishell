@@ -54,7 +54,7 @@ SRCS =	srcs/main.c \
 		srcs/mini_env/create_envnode.c \
 		srcs/mini_env/setenv.c \
 		srcs/lexer/interpret.c \
-		srsc/lexer/interp_delim.c \
+		srsc/lexer/interp_lim.c \
 		srcs/lexer/interp_quotes.c \
 		srcs/lexer/interp_word.c \
 		srcs/lexer/interp_space.c \
@@ -98,9 +98,9 @@ SRCS =	srcs/main.c \
 		srcs/print/print_token.c \
 		srcs/print/print_cmd.c \
 		srcs/print/print_env.c \
-		srcs/print/print_ppl.c \
 		srcs/error/error_exit.c \
 		srcs/error/error_input.c \
+		srcs/error/error_input_msg.c \
 		srcs/error/ft_error.c \
 		srcs/free/free_token.c \
 		srcs/free/free_ppl.c \

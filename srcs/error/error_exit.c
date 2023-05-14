@@ -7,7 +7,7 @@ void	msg_error(char *error, int errnum)
 	{
 		ft_putstr_fd(error, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		exit(EXIT_FAILURE);
+		exit(g_exit_status);
 	}
 	else
 	{
@@ -17,7 +17,7 @@ void	msg_error(char *error, int errnum)
 	ft_putstr_fd("Exit status: ", STDERR_FILENO);
 	ft_putnbr_fd(g_exit_status, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(g_exit_status);
+	exit(0);
 }
 
 int	error_msg(const char *msg)

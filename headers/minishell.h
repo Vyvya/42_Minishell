@@ -79,13 +79,13 @@ int			ft_strcmp(const char *s1, const char *s2);
 /*LEXER*/
 void		interp(char *line, t_envnode *mini_env);
 char		*skip_spaces(char *str);
-char		*check_delim(char **p, t_token **head);
-int			is_delim_char(char c);
+char		*check_lim(char **p, t_token **head);
+int			is_lim_char(char c);
 char		*check_quotes(char **p, t_token **head);
-int			is_quote(char c);
-int			eval_quote_type(char *q);
+int			is_q(char c);
+int			eval_q_t(char *q);
 int			get_wordlen(char *p);
-void		*expand_token_list(t_token **token_head, t_envnode *mini_env);
+void		*exp_toklist(t_token **token_head, t_envnode *mini_env);
 
 
 /*TOKEN*/
@@ -93,7 +93,7 @@ t_token		*new_token(char *content, t_toktype type);
 t_token		*last_token(t_token *token_list);
 void		add_token(t_token **head, char *content, t_toktype type);
 char		*get_next_token(t_token *token, char *temp);
-char		*expand_token(char **content, t_envnode *mini_env);
+char		*exp_tok(char **cont, t_envnode *mini_env);
 void		*merge_tokens(t_token **token_head);
 void		*delete_tok_spaces(t_token **token_head);
 void		ft_export_args(char *cmd, t_envnode **env_lst);
@@ -103,7 +103,7 @@ void		ft_strdel(char **as);
 char		*ft_strjoin_free(char *s1, char *s2);
 size_t		ft_strcspn(const char *str, const char *charset);
 int			ft_strncmp2(char *s1, char *s2, int n);
-int			ft_strset(const char *s1, char *s2);
+// int			ft_strset(const char *s1, char *s2);
 // char		*strndup(const char *str, size_t n);
 // char		*ft_strncpy(char *dest, const char *src, size_t n);
 
@@ -196,13 +196,19 @@ void	finish_multi_exec(t_ppl **p_ppl);
 void		free_ppl(t_ppl **new_ppl, int *i);
 void		free_one_ppl(t_ppl **new_ppl);
 
-int			ft_bool_strcspn(const char *str, const char *charset);
+// int			ft_bool_strcspn(const char *str, const char *charset);
 void		print_one_ppl(t_ppl *ppl);
 void		print_ppl_list(t_ppl *ppl_list, int ppl_idx);
 
 /*ERROR*/
 int			handle_input_error(t_token **token_head);
-int			handle_input_red_error();
+int	input_error_01(t_token **tok_head);
+int	input_error_02(t_token **tok_head);
+int	handle_input_pipe(void);
+int	handle_input_2pipes(void);
+int	handle_input_red_error(void);
+int	handle_input_red_pipe(char **content);
+// int			handle_input_red_error(void);
 int			error_msg(const char *msg);
 int			error_mem(void);
 void		msg_error(char *error, int errnum);

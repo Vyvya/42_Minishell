@@ -5,7 +5,7 @@ int	ft_handle_redir_out(t_ppl **new_ppl, t_token **ptr_cmd_red)
 	int	fd_out;
 
 	fd_out = 0;
-	if ((*ptr_cmd_red)->id == TOK_R_OUT)
+	if ((*ptr_cmd_red)->id == T_RO)
 	{
 		if (access((*ptr_cmd_red)->next->content, F_OK) == 0)
 		{

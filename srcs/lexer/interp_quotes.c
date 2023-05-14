@@ -1,6 +1,6 @@
 #include "../../headers/minishell.h"
 
-int	is_quote(char c)
+int	is_q(char c)
 {
 	if (c == '\'' || c == '"')
 	{
@@ -9,57 +9,90 @@ int	is_quote(char c)
 	return (0);
 }
 
-int	eval_quote_type(char *q)
+int	eval_q_t(char *q)
 {
 	if (*q == '\"')
-		return (TOK_D_QUOTE);
+		return (T_DQ);
 	else if (*q == '\'')
-		return (TOK_S_QUOTE);
-	return (0);		
+		return (T_SQ);
+	return (0);
 }
 
-char	*check_quotes(char **p, t_token **head)
+static void advance(char **p_q, int *q_len)
 {
-	char	*ptr_quote;
-	int		quote_status;
-	int		quote_len;
+	(*p_q)++;
+	(*q_len)++;
+}
 
-	ptr_quote = *p;
-	quote_status = 0;
-	quote_len = 0;
-	while (ptr_quote && *ptr_quote)
+// static char	*manage_close(char **p, t_token **head, char **p_q, int *q_len)
+// {
+// 	(*q_len)++;
+// 	if (((eval_q_t(*p)) + (eval_q_t((*p_q)))) % 2 == 0)
+// 		add_token(head, ft_substr(*p, 0, (*q_len)), eval_q_t(*p));
+// 		*p += (*q_len);
+// 	return (*p);
+// }
+
+char *check_quotes(char **p, t_token **head)
+{
+	char *p_q;
+	int	q_status;
+	int q_len;
+
+	p_q = *p;
+	q_status = 0;
+	q_len = 0;
+	while (p_q && *p_q)
 	{
-		if (quote_status == CLOSED)
+		if (q_status == CLOSED)
 		{
-			quote_status = OPEN;
-			ptr_quote++;
-			quote_len++;
-			while (*ptr_quote && (!(is_quote(*ptr_quote)) \
-			|| ((eval_quote_type(*p)) + (eval_quote_type(ptr_quote))) % 2))
-			{
-				ptr_quote++;
-				quote_len++;
-			}
+			q_status = OPEN;
+			advance(&p_q, &q_len);
+			while (*p_q && (!(is_q(*p_q)) || ((eval_q_t(*p)) + (eval_q_t(p_q))) % 2))
+				advance(&p_q, &q_len);
 		}
-		else if (is_quote(*ptr_quote) && quote_status == OPEN)
+		else if (is_q(*p_q) && q_status == OPEN)
 		{
-			quote_status = CLOSED;
-			quote_len++;
-			if (((eval_quote_type(*p)) + (eval_quote_type(ptr_quote))) % 2 == 0)
-				add_token(head, ft_substr(*p, 0, quote_len), \
-				eval_quote_type(*p));
-			*p += quote_len;
+			q_status = CLOSED;
+			q_len++;
+			if (((eval_q_t(*p)) + (eval_q_t(p_q))) % 2 == 0)
+				add_token(head, ft_substr(*p, 0, q_len), eval_q_t(*p));
+				*p += q_len;
 			return (*p);
 		}
 	}
-	if (!(is_quote(*ptr_quote)) && quote_status == OPEN && *ptr_quote == '\0')
+	if (!(is_q(*p_q)) && q_status == OPEN && *p_q == '\0')
 	{
-		add_token(head, ft_substr(*p, 0, (*p - ptr_quote)), TOK_ERRQUOTE);
-		*p += quote_len;
+		add_token(head, ft_substr(*p, 0, (*p - p_q)), T_ERQ);
+		*p += q_len;
 		return (*p);
 	}
 	else
-	{
 		return (*p);
-	}
 }
+
+// char *check_quotes(char **p, t_token **head)
+// {
+//     char *p_q;
+//     int q_len;
+// 	int	q_status;
+
+// 	p_q = *p;
+//     while (p_q && *p_q)
+// 	{
+//         if (q_status == CLOSED)
+// 		{
+//             q_status = OPEN;
+//             p_q++;
+//             q_len++;
+//             p_q = handle_open_quote(p, head, &p_q, &q_len);
+//         }
+// 		else if (is_q(*p_q) && q_status == OPEN)
+// 		{
+//             q_status = CLOSED;
+//             process_closed_quote(p, head, &p_q, q_len);
+//             return *p;
+//         }
+//     }
+//     return handle_end_of_input(p, head, &p_q, q_len);
+// }

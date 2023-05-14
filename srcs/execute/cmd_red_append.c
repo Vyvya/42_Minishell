@@ -5,7 +5,7 @@ int	ft_handle_redir_append(t_ppl **new_ppl, t_token **ptr_cmd_red)
 	int	fd_out;
 
 	fd_out = -1;
-	if ((*ptr_cmd_red)->id == TOK_R_OUT_APP)
+	if ((*ptr_cmd_red)->id == T_ROA)
 	{
 		if (access((*ptr_cmd_red)->next->content, F_OK) == 0)
 		{

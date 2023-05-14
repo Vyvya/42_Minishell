@@ -5,7 +5,7 @@ int	ft_handle_redir_in(t_ppl **new_ppl, t_token **ptr_cmd_red)
 	int	fd_in;
 
 	fd_in = 0;
-	if ((*ptr_cmd_red)->id == TOK_R_IN)
+	if ((*ptr_cmd_red)->id == T_RI)
 	{
 		if (access((*ptr_cmd_red)->next->content, R_OK) != 0 && errno != ENOENT)
 		{

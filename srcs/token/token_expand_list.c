@@ -1,51 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_expand_list.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vg <vg@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 18:33:11 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/14 01:32:00 by vg               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
-static void	*expand_token_list_sub(t_token *curr, t_envnode *mini_env, \
-char *expanded, char *d_trimmed)
+static void *exp_toklist_s(t_token *curr, t_envnode *mini_env,
+						   char *exp, char *d_trim)
 {
-	if (curr->id == TOK_D_QUOTE)
+	if (curr->id == T_DQ)
 	{
-		d_trimmed = ft_strtrim(curr->content, "\"");
+		d_trim = ft_strtrim(curr->content, "\"");
 		my_free(curr->content);
-		curr->content = d_trimmed;
-		curr->id = TOK_D_QUOTE;
+		curr->content = d_trim;
+		curr->id = T_DQ;
 	}
 	if (ft_strncmp(curr->content, "$?", 2) != 0)
 	{
-		expanded = expand_token(&curr->content, mini_env);
-		if (expanded == NULL)
+		exp = exp_tok(&curr->content, mini_env);
+		if (exp == NULL)
 			return (NULL);
 		my_free(curr->content);
-		curr->content = ft_strdup(expanded);
-		my_free(expanded);
+		curr->content = ft_strdup(exp);
+		my_free(exp);
 	}
-	if (expanded == NULL)
+	if (ft_strncmp(curr->content, "$?", 2) != 0 && exp == NULL)
 		return (NULL);
 	return (curr);
 }
 
-void	*expand_token_list(t_token **token_head, t_envnode *mini_env)
+void *exp_toklist(t_token **token_head, t_envnode *mini_env)
 {
-	t_token	*curr;
-	char	*expanded;
-	char	*d_trimmed;
-	char	*s_trimmed;
+	t_token *curr;
+	char *exp;
+	char *d_trim;
+	char *s_trim;
 
 	curr = *token_head;
-	expanded = NULL;
-	d_trimmed = NULL;
-	s_trimmed = NULL;
+	exp = NULL;
+	d_trim = NULL;
+	s_trim = NULL;
 	while (curr != NULL)
 	{
-		if (curr->id == TOK_WORD || curr->id == TOK_D_QUOTE)
-			curr = expand_token_list_sub(curr, mini_env, expanded, d_trimmed);
-		if (curr->id == TOK_S_QUOTE)
+		if (curr->id == T_W || curr->id == T_DQ)
+			curr = exp_toklist_s(curr, mini_env, exp, d_trim);
+		if (curr->id == T_SQ)
 		{
-			s_trimmed = ft_strtrim(curr->content, "\'");
+			s_trim = ft_strtrim(curr->content, "\'");
 			my_free(curr->content);
-			curr->content = ft_strdup(s_trimmed);
-			my_free(s_trimmed);
-			curr->id = TOK_WORD;
+			curr->content = ft_strdup(s_trim);
+			my_free(s_trim);
+			curr->id = T_W;
 		}
 		curr = curr->next;
 	}

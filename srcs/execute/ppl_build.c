@@ -1,21 +1,5 @@
 #include "../../headers/minishell.h"
 
-static int	handle_redir(t_ppl *new_ppl, t_token *cmd_red)
-{
-	if (ft_handle_red_all(&new_ppl, cmd_red) == 1)
-	{
-		new_ppl->pp_red_status = 1;
-		return (1);
-	}
-	else
-	{
-		ft_putstr_fd("minishell_VH: ", STDERR_FILENO);
-		ft_putstr_fd(cmd_red->next->content, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		return (0);
-	}
-}
-
 static void	append_ppl(t_ppl **ppl, t_ppl *new_ppl, \
 t_ppl **ppl_tail)
 {
@@ -36,6 +20,23 @@ static void	fill_env_ppl(t_ppl *ppl, t_envnode *mini_env, int pp_idx)
 	ppl->pp_arr_env = mini_env_arr(mini_env, mini_env_size(mini_env));
 	ppl->pp_list_env = mini_env;
 	ppl->ppl_idx = pp_idx;
+}
+
+static int	handle_redir(t_ppl *new_ppl, t_token *cmd_red)
+{
+	if (ft_handle_red_all(&new_ppl, cmd_red) == 1)
+	{
+		new_ppl->pp_red_status = 1;
+		return (1);
+	}
+	else
+	{
+		g_exit_status = 1;
+		ft_putstr_fd("minishell_VH: ", STDERR_FILENO);
+		ft_putstr_fd(cmd_red->next->content, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		return (0);
+	}
 }
 
 static int	handle_cmd_word_red(t_ppl **p_ppl, t_cmd **cmd_ptr_head)

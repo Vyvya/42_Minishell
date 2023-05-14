@@ -9,32 +9,33 @@ static int	ft_red_list_size(t_token **tok_head)
 	size = 0;
 	while (tok_h != NULL)
 	{
-		if (tok_h != NULL && (tok_h->id == TOK_R_IN || tok_h->id == TOK_R_OUT \
-		|| tok_h->id == TOK_R_OUT_APP || tok_h->id == TOK_R_HDOC))
+		if (tok_h != NULL && (tok_h->id == T_RI || tok_h->id == T_RO \
+		|| tok_h->id == T_ROA || tok_h->id == T_RHD))
 			size++;
 		tok_h = tok_h->next;
 	}
 	return (size);
 }
 
-void	handle_redirection(t_ppl **new_ppl, t_token **ptr_cmd_red)
+static int	handle_redirection(t_ppl **new_ppl, t_token **ptr_cmd_red)
 {
-	if ((*ptr_cmd_red)->id == TOK_R_OUT)
+	if ((*ptr_cmd_red)->id == T_RO)
 		ft_handle_redir_out(new_ppl, ptr_cmd_red);
-	else if ((*ptr_cmd_red)->id == TOK_R_OUT_APP)
+	else if ((*ptr_cmd_red)->id == T_ROA)
 		ft_handle_redir_append(new_ppl, ptr_cmd_red);
-	else if ((*ptr_cmd_red)->id == TOK_R_IN)
+	else if ((*ptr_cmd_red)->id == T_RI)
 	{
 		if (ft_handle_redir_in(new_ppl, ptr_cmd_red) == 1)
-			return ;
+			return (1);
 		else
-			return ;
+			return (0);
 	}
-	else if ((*ptr_cmd_red)->id == TOK_R_HDOC)
+	else if ((*ptr_cmd_red)->id == T_RHD)
 	{
 		(*new_ppl)->pp_heredoc_status = 1;
 		ft_handle_heredoc(new_ppl, ptr_cmd_red);
 	}
+	return (1);
 }
 
 int	ft_handle_red_all(t_ppl **new_ppl, t_token *ptr_cmd_red)
@@ -46,7 +47,8 @@ int	ft_handle_red_all(t_ppl **new_ppl, t_token *ptr_cmd_red)
 	red_list_size = ft_red_list_size(&ptr_cmd_red);
 	while (ptr_cmd_red && i < red_list_size)
 	{
-		handle_redirection(new_ppl, &ptr_cmd_red);
+		if (!handle_redirection(new_ppl, &ptr_cmd_red))
+			return (0);
 		if (ptr_cmd_red->next->next)
 			ptr_cmd_red = ptr_cmd_red->next->next;
 		i++;
