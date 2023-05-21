@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:58:46 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 17:01:05 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
+
+void	error_env(void)
+{
+	printf("Failed to create my_environment list\n");
+	g_exit_status = 1;
+}
+
+void	error_args(void)
+{
+	printf("Error arguments\n");
+	g_exit_status = 1;
+}
 
 void	msg_error(char *error, int errnum)
 {
@@ -18,19 +42,4 @@ void	msg_error(char *error, int errnum)
 	ft_putnbr_fd(g_exit_status, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
 	exit(0);
-}
-
-int	error_msg(const char *msg)
-{
-	printf(R "error: %s\n" RS, msg);
-	if (errno)
-		errno = 0;
-	return (0);
-}
-
-int	error_mem(void)
-{
-	error_msg("memory");
-	exit(1);
-	return (0);
 }

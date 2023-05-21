@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   duplicate_envp.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 16:09:06 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 16:09:07 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 static void	free_env_node(char *key, char *value, char *content)
@@ -60,6 +72,7 @@ t_envnode	*duplicate_env(char **envp)
 
 	head = NULL;
 	i = 0;
+	node = NULL;
 	while (envp[i])
 	{
 		node = create_envvar_node(envp[i]);
@@ -70,49 +83,3 @@ t_envnode	*duplicate_env(char **envp)
 	}
 	return (head);
 }
-
-// t_envnode	*duplicate_env(char **envp)
-// {
-// 	char		*key;
-// 	char		*value;
-// 	char		*content;
-// 	t_envnode	*node;
-// 	t_envnode	*head;
-// 	t_envnode	*temp;
-// 	int			i;
-// 	int			j;
-
-// 	node = NULL;
-// 	head = NULL;
-// 	temp = NULL;
-// 	i = 0;
-// 	j = 0;
-// 	while (envp[i])
-// 	{
-// 		j = 0;
-// 		while (envp[i][j] != '=')
-// 			j++;
-// 		key = ft_substr(envp[i], 0, j);
-// 		value = ft_substr(envp[i], (j + 1), ft_strlen(envp[i]));
-// 		content = ft_strdup(envp[i]);
-// 		node = create_mini_envvar_node(key, value, content);
-// 		if (!node)
-// 			return (NULL);
-// 		if (head == NULL)
-// 			head = node;
-// 		else
-// 		{
-// 			temp = head;
-// 			while (temp->next)
-// 				temp = temp->next;
-// 			temp->next = node;
-// 			node->prev = temp;
-// 			temp = node;
-// 		}
-// 		my_free(key);
-// 		my_free(value);
-// 		my_free(content);
-// 		i++;
-// 	}
-// 	return (head);
-// }

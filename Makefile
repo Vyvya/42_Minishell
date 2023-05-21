@@ -1,6 +1,6 @@
 NAME = minishell
 
-SANITIZE = #-fsanitize=address #-fsanitize=leak
+# SANITIZE = -fsanitize=address #-fsanitize=leak
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
 FLAGS += -g
@@ -11,9 +11,6 @@ RLIB = -L/Users/$(USER)/.brew/Cellar/readline/8.2.1/lib -lreadline
 RINC = -I.brew/Cellar/readline/8.2.1/include/readline
 LIBFT = libft/libft.a
 
-# << HEADERS >> #
-#DIR_SRCS = ./srsc
-#DIR_OBJS = ./objs
 DIR_INCS = ./headers/
 INCS = ${DIR_INCS}/minishell.h
 INCS += ${DIR_INCS}/structure.h
@@ -21,7 +18,6 @@ INCS += ${DIR_INCS}/structure.h
 MAKE = make -s
 RM = rm -rf
 
-# << SOURCES >> #
 DIR_SRCS = ./srcs
 DIR_SRCS += ./srcs/sig_handler
 DIR_SRCS += ./srcs/init
@@ -34,16 +30,14 @@ DIR_SRCS += ./srcs/execute
 DIR_SRCS += ./srcs/print
 DIR_SRCS += ./srcs/error
 DIR_SRCS += ./srcs/free
-#DIR_SRCS += ./srcs/parser
-SRCS = ${DIR_SRCS}/main.c
-#SRCS += ${DIR_SRCS}/..
 
-# << OBJECTS >> #
+SRCS = ${DIR_SRCS}/main.c
+
 DIR_OBJS = ./objs
 OBJS = ${addprefix ${DIR_OBJS}/, ${notdir ${SRCS:.c=.o}}}
 
 SRCS =	srcs/main.c \
-		srcs/sig_handler/signal_handler_new.c \
+		srcs/sig_handler/sig_handler.c \
 		srcs/sig_handler/sig_termios.c \
 		srcs/init/envnode_init.c \
 		srcs/init/token_init.c \
@@ -56,6 +50,7 @@ SRCS =	srcs/main.c \
 		srcs/lexer/interpret.c \
 		srsc/lexer/interp_lim.c \
 		srcs/lexer/interp_quotes.c \
+		srcs/lexer/interp_quotes_is.c \
 		srcs/lexer/interp_word.c \
 		srcs/lexer/interp_space.c \
 		srcs/token/token_list.c \
@@ -104,10 +99,6 @@ SRCS =	srcs/main.c \
 		srcs/error/ft_error.c \
 		srcs/free/free_token.c \
 		srcs/free/free_ppl.c \
-		# srcs/sig_handler/signal_handler2.c \
-		# srcs/sig_handler/signal_handler.c \
-
-
 
 DFILES = srcs/${addprefix ${DIR_OBJS}/, ${notdir ${SRCS:.c=.d}}}
 
@@ -133,7 +124,6 @@ clean:
 fclean: clean
 	${MAKE} fclean -C libft
 	${RM} ${NAME}
-
 
 re: fclean all
 

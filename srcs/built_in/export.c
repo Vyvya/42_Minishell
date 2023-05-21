@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:58:08 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/15 22:33:02 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 static int	ft_export_noargs(t_envnode **mini_env, t_envnode *new_env)
@@ -59,9 +71,6 @@ static int	export_key(t_envnode **mini_env, char **cmd_args)
 
 static int	export_command(t_ppl **ppl, int k)
 {
-	// t_envnode	*new_env_var;
-
-	// new_env_var = NULL;
 	if ((*ppl)->ppl_cmd[k] && ft_strchr((*ppl)->ppl_cmd[k], '='))
 	{
 		if (!export_key_value(&(*ppl)->pp_list_env, \
@@ -96,36 +105,3 @@ int	ft_export(t_ppl **ppl)
 	}
 	return (EXIT_SUCCESS);
 }
-
-// int	ft_export(t_ppl **ppl)
-// {
-// 	t_envnode	*new_env_var;
-// 	int			k;
-
-// 	new_env_var = NULL;
-// 	k = 0;
-// 	if ((*ppl)->ppl_cmd[1] == NULL && (*ppl)->pp_list_env)
-// 	{
-// 		if (!ft_export_noargs(&(*ppl)->pp_list_env, new_env_var))
-// 			return (-1);
-// 		return (EXIT_SUCCESS);
-// 	}
-// 	while ((*ppl)->ppl_cmd[++k])
-// 	{
-// 		if ((*ppl)->ppl_cmd[k]
-// 			&& ft_strchr((*ppl)->ppl_cmd[k], '='))
-// 		{
-// 			if (!export_key_value(&(*ppl)->pp_list_env,
-// 					&(*ppl)->ppl_cmd[k]))
-// 				return (-1);
-// 		}
-// 		if ((*ppl)->ppl_cmd[k]
-// 			&& !ft_strchr((*ppl)->ppl_cmd[k], '='))
-// 		{
-// 			if (!export_key(&(*ppl)->pp_list_env, &(*ppl)->ppl_cmd[k]))
-// 				return (-1);
-// 		}
-// 		// ft_export_args()
-// 	}
-// 	return (EXIT_SUCCESS);
-// }

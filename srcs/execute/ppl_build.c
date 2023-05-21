@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ppl_build.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 16:10:44 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 16:10:45 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 static void	append_ppl(t_ppl **ppl, t_ppl *new_ppl, \
@@ -24,12 +36,15 @@ static void	fill_env_ppl(t_ppl *ppl, t_envnode *mini_env, int pp_idx)
 
 static int	handle_redir(t_ppl *new_ppl, t_token *cmd_red)
 {
-	if (ft_handle_red_all(&new_ppl, cmd_red) == 1)
+	int	res;
+
+	res = ft_handle_red_all(&new_ppl, cmd_red);
+	if (res == 1)
 	{
 		new_ppl->pp_red_status = 1;
 		return (1);
 	}
-	else
+	else if (res == 2)
 	{
 		g_exit_status = 1;
 		ft_putstr_fd("minishell_VH: ", STDERR_FILENO);
@@ -37,6 +52,7 @@ static int	handle_redir(t_ppl *new_ppl, t_token *cmd_red)
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		return (0);
 	}
+	return (0);
 }
 
 static int	handle_cmd_word_red(t_ppl **p_ppl, t_cmd **cmd_ptr_head)

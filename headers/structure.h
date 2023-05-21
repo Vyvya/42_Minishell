@@ -1,28 +1,43 @@
-#ifndef STRUCTURE_H
-#define STRUCTURE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structure.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:54:51 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 20:31:04 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int g_exit_status;
+#ifndef STRUCTURE_H
+# define STRUCTURE_H
+
+# include "test.h"
+
+int	g_exit_status;
+
 //-------------------MY_ENV-----------------------
 
 typedef struct s_envnode
 {
-	char *key;
-	char *value;
-	char *content;
-	struct s_envnode *prev;
-	struct s_envnode *next;
-} t_envnode;
+	char				*key;
+	char				*value;
+	char				*content;
+	struct s_envnode	*prev;
+	struct s_envnode	*next;
+}	t_envnode;
 
 typedef struct s_prompt
 {
-	int nbr_elm;
-	char *str;
-} t_prompt;
+	int		nbr_elm;
+	char	*str;
+}	t_prompt;
 
 //-------------------LEXER------------------------
 
-#define CLOSED 0
-#define OPEN 1
+# define CLOSED 0
+# define OPEN 1
 
 // assigning integer value to tokens = enumeration
 typedef enum e_toktype
@@ -40,83 +55,83 @@ typedef enum e_toktype
 	T_ERQ,
 	T_EMPTY,
 	TOK_NONE
-} t_toktype;
+}	t_toktype;
 
 typedef struct s_lim
 {
-	char *lim_str;
-	int lim_len;
-	t_toktype lim_type;
-} t_lim;
-
-// t_lim lims[] = {
-//     {"<<", 2, T_RHD},
-//     {">>", 2, T_ROA},
-//     {">", 1, T_RO},
-//     {"<", 1, T_RI},
-//     {"|", 1, T_PP}
-// };
+	char		*lim_str;
+	int			lim_len;
+	t_toktype	lim_type;
+}	t_lim;
 
 typedef struct s_quote
 {
-	char *quote_str;
-	int q_len;
-	t_toktype quote_type;
-} t_quote;
+	char		*quote_str;
+	int			q_len;
+	t_toktype	quote_type;
+}	t_quote;
 
 typedef struct s_token
 {
-	char *content;
-	t_toktype id;
-	struct s_token *next;
-} t_token;
-// struct s_token	*prev;
+	char			*content;
+	t_toktype		id;
+	struct s_token	*next;
+}	t_token;
 
 //-------------------PARSER------------------------------
 
 typedef struct s_cmd
 {
-	t_token *cmd_word;
-	t_token *cmd_red;
-	struct s_cmd *next;
-} t_cmd;
+	t_token			*cmd_word;
+	t_token			*cmd_red;
+	struct s_cmd	*next;
+}	t_cmd;
 
 //-------------------EXECUTER------------------------------
 
-typedef struct s_ppl t_ppl;
+// typedef struct		s_ppl t_ppl;
 
-typedef int (*builtin_func)(t_ppl **);
+// typedef int			(*builtin_func)(t_ppl **);
 
 typedef struct s_builtin
 {
-	const char *name;
-	builtin_func func;
-} t_builtin;
+	const char		*name;
+	t_builtin_func	func;
+}	t_builtin;
+
+// struct	s_ppl;
+
+// // struct	s_builtin;
+// typedef struct s_builtin
+// {
+// 	const char		*name;
+// 	int				(*builtin_func)(t_ppl **);
+// }	t_builtin;
 
 typedef struct s_ppl
 {
-	char *pp_first_cmd;
-	char **ppl_cmd;
-	char **pp_arr_env;
-	int ppl_idx;
-	int pp_pid;
-	int saved_stdin;
-	int saved_stdout;
-	int pp_builtin_status;
-	int pp_red_status;
-	int pp_infile;
-	int pp_outfile;
-	int pp_heredoc_status;
-	char *pp_heredoc_eof;
-	int pp_fd_in;
-	int pp_fd_out;
-	int pp_append_fd;
-	int pp_exit;
-	t_envnode *pp_list_env;
-	t_builtin *builtin;
-	t_cmd *cmd;
-	struct s_ppl *next;
-	struct s_ppl *first;
-} t_ppl;
+	char			*pp_first_cmd;
+	char			**ppl_cmd;
+	char			**pp_arr_env;
+	int				ppl_idx;
+	int				pp_pid;
+	int				saved_stdin;
+	int				saved_stdout;
+	int				pp_builtin_status;
+	int				pp_red_status;
+	int				pp_infile;
+	int				pp_outfile;
+	int				pp_heredoc_status;
+	char			*pp_heredoc_eof;
+	int				pp_fd_in;
+	int				pp_fd_out;
+	int				pp_append_fd;
+	int				pp_exit;
+	t_envnode		*pp_list_env;
+	t_builtin		*builtin;
+	t_cmd			*cmd;
+	struct s_ppl	*next;
+	struct s_ppl	*first;
+}	t_ppl;
 
 #endif

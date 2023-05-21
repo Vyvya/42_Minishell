@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vg <vg@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:59:03 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 01:15:04 by vg               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 int	input_error_02(t_token **tok_head)
@@ -47,10 +59,8 @@ int	input_error_01(t_token **tok_head)
 int	handle_input_error(t_token **token_head)
 {
 	t_token	*tok_h;
-	char	*msg;
 
 	tok_h = *token_head;
-	msg = NULL;
 	if (tok_h != NULL && tok_h->id == T_PP)
 	{
 		handle_input_pipe();

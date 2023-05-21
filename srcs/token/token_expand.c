@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_expand.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 16:07:40 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 21:33:06 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 static char	*mini_getenv(char *var_name, int var_len, t_envnode *mini_env)
@@ -21,7 +33,7 @@ static char	*exp_tok_s(char **cont, char *prefix, char *exp, char *var_value)
 {
 	exp = ft_strjoin_free(exp, prefix);
 	exp = ft_strjoin_free(exp, var_value);
-	*cont = *cont + ft_strcspn(*cont + 1, " $;|/\'&><\n") + 1;
+	*cont = *cont + ft_strcspn(*cont + 1, " $;=-|/\'&><\n") + 1;
 	ft_strdel(&prefix);
 	if (*cont == *cont - 1)
 		exp = ft_strjoin_free(exp, "$");
@@ -32,7 +44,7 @@ static char	*find_var_value(char **cont, t_envnode *mini_env,
 							char *var_name, char *var_value)
 {
 	var_value = mini_getenv(var_name, ft_strcspn(*cont + 1, \
-	" $;|/\'&><\n"), mini_env);
+	" $;=-|/\'&><\n"), mini_env);
 	if (!var_value)
 		var_value = "";
 	ft_strdel(&var_name);
@@ -56,7 +68,7 @@ char	*exp_tok(char **cont, t_envnode *mini_env)
 		if (*p == '$' && p[1])
 		{
 			prefix = ft_substr(*cont, 0, p - *cont);
-			var_name = ft_substr(p + 1, 0, ft_strcspn(p + 1, " $;|/\'&><\n"));
+			var_name = ft_substr(p + 1, 0, ft_strcspn(p + 1, " $;=-|/\'&><\n"));
 			var_value = find_var_value(cont, mini_env, var_name, var_value);
 			exp = exp_tok_s(cont, prefix, exp, var_value);
 			p = *cont;

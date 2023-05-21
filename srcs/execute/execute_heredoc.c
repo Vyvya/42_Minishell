@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_heredoc.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 23:15:28 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/15 23:15:29 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 int	execute_heredoc(t_ppl **ppl)
@@ -8,6 +20,7 @@ int	execute_heredoc(t_ppl **ppl)
 	line = NULL;
 	if (pipe(fd) == -1)
 		msg_error("minishell_VH: failed to create pipe", errno);
+	(*ppl)->saved_stdin = dup(STDIN_FILENO);
 	while (1)
 	{
 		line = readline("> ");
@@ -19,11 +32,8 @@ int	execute_heredoc(t_ppl **ppl)
 		ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
-	if ((*ppl)->pp_first_cmd)
-	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-	}
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
 	close(fd[1]);
 	return (EXIT_SUCCESS);
 }

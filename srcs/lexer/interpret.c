@@ -1,15 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   interpret.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 16:09:52 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 16:09:53 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
-static char *manage_word(char **cur, t_token **head, char **p)
+static char	*manage_word(char **cur, t_token **head, char **p)
 {
-	(*cur) = ft_substr((*p), 0, get_wordlen((*p)));
-	add_token(&(*head), (*cur), T_W);
-	my_free((*cur));
-	(*p) = (*p) + get_wordlen((*p));
+	while (!ft_isspace(**p))
+	{
+		(*cur) = ft_substr((*p), 0, get_wordlen((*p)));
+		add_token(&(*head), (*cur), T_W);
+		my_free((*cur));
+		(*p) = (*p) + get_wordlen((*p));
+		break ;
+	}
 	return ((*p));
 }
 
-static char *manage_space(char **p, t_token **head)
+static char	*manage_space(char **p, t_token **head)
 {
 	if (ft_isspace(**p))
 		add_token((&(*head)), " ", T_SP);
@@ -17,11 +33,11 @@ static char *manage_space(char **p, t_token **head)
 	return ((*p));
 }
 
-t_token *lexer(char *input_str)
+t_token	*lexer(char *input_str)
 {
-	char *p;
-	t_token *head;
-	char *current;
+	char	*p;
+	t_token	*head;
+	char	*current;
 
 	head = NULL;
 	current = NULL;
@@ -29,11 +45,8 @@ t_token *lexer(char *input_str)
 	while (p && *p)
 	{
 		manage_space(&p, &head);
-		// if (ft_isspace(*p))
-		// 	add_token(&head, " ", T_SP);
-		// p = skip_spaces(p);
 		if (!*p)
-			break;
+			break ;
 		if (is_lim_char(*p))
 			check_lim(&p, &head);
 		else if (is_q(*p))
@@ -43,35 +56,26 @@ t_token *lexer(char *input_str)
 				return (head);
 		}
 		else
-		{
-			while (!ft_isspace(*p))
-			{
-				manage_word(&current, &head, &p);
-				break;
-			}
-		}
+			manage_word(&current, &head, &p);
 	}
 	return (head);
 }
 
-void interp(char *line, t_envnode *mini_env)
+void	interp(char *line, t_envnode *mini_env)
 {
-	t_token *token_head;
+	t_token	*token_head;
 
 	token_head = NULL;
 	token_head = lexer(line);
 	if (!token_head)
-		return;
+		return ;
 	exp_toklist(&token_head, mini_env);
 	if (!token_head)
-		return;
+		return ;
 	merge_tokens(&token_head);
 	delete_tok_spaces(&token_head);
-	// printf(GREEN "returned delete_tok_spaces\n" RS);
 	if (handle_input_error(&token_head) == 1)
-		return;
-	// print_token(token_head);
+		return ;
 	if (token_head)
 		parse(&token_head, mini_env);
-	// return (NULL);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_dup.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 22:04:57 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 16:32:43 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 void	dup_fds(t_ppl **ppl)
@@ -27,4 +39,23 @@ void	dup2_saved_stds(t_ppl **ppl)
 {
 	dup2((*ppl)->saved_stdout, STDOUT_FILENO);
 	dup2((*ppl)->saved_stdin, STDIN_FILENO);
+}
+
+void	*manage_dup(t_ppl **ppl_p)
+{
+	t_ppl	*ppl;
+
+	ppl = *ppl_p;
+	if ((ppl->pp_heredoc_status == 0) || (ppl->pp_heredoc_status == 1 && \
+	ppl->pp_red_status == 1))
+		dup_fds(&ppl);
+	if (ppl->pp_heredoc_status == 1 && ppl->pp_red_status == 0)
+	{
+		dup2((ppl)->pp_outfile, STDOUT_FILENO);
+		close_all_fds(&ppl);
+		ppl->pp_heredoc_status = 0;
+	}
+	if (ppl->pp_red_status == 1)
+		dup_red_fds(&ppl);
+	return (EXIT_SUCCESS);
 }

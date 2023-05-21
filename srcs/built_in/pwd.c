@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:57:51 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/15 21:57:52 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"../../headers/minishell.h"
 
 static int	cmp_pwd(t_envnode *curr_var, char *cwd)
@@ -29,6 +41,8 @@ int	ft_pwd(t_ppl **ppl)
 	char		*cwd;
 
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (1);
 	curr_var = (*ppl)->pp_list_env;
 	while (curr_var != 0)
 	{

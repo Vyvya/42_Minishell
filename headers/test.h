@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 16:10:22 by vgejno            #+#    #+#             */
-/*   Updated: 2023/05/16 16:10:23 by vgejno           ###   ########.fr       */
+/*   Created: 2023/05/16 20:26:46 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 20:30:53 by vgejno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#ifndef TEST_H
+# define TEST_H
 
-void	free_token_list(t_token *tokens)
-{
-	t_token	*cur;
-	t_token	*next;
+typedef struct s_ppl	t_ppl;
 
-	cur = tokens;
-	next = NULL;
-	while (cur != NULL)
-	{
-		next = cur->next;
-		my_free(cur->content);
-		my_free(cur);
-		cur = next;
-	}
-}
+typedef int				(*t_builtin_func)(t_ppl **);
+
+#endif

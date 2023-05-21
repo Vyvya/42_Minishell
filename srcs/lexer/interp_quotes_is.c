@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   interp_quotes_is.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 16:10:22 by vgejno            #+#    #+#             */
-/*   Updated: 2023/05/16 16:10:23 by vgejno           ###   ########.fr       */
+/*   Created: 2023/05/16 16:09:33 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 16:09:34 by vgejno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	free_token_list(t_token *tokens)
+int	is_q(char c)
 {
-	t_token	*cur;
-	t_token	*next;
-
-	cur = tokens;
-	next = NULL;
-	while (cur != NULL)
+	if (c == '\'' || c == '"')
 	{
-		next = cur->next;
-		my_free(cur->content);
-		my_free(cur);
-		cur = next;
+		return (1);
 	}
+	return (0);
+}
+
+// eval_quote
+int	eqt(char *q)
+{
+	if (*q == '\"')
+		return (T_DQ);
+	else if (*q == '\'')
+		return (T_SQ);
+	return (0);
 }

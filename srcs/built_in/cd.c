@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:56:37 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 22:51:47 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"../../headers/minishell.h"
 
-// Check if HOME environment variable is set
 static int	is_home_set(t_ppl *ppl)
 {
 	t_envnode	*home;
@@ -13,10 +24,10 @@ static int	is_home_set(t_ppl *ppl)
 		home = home->next;
 	}
 	fprintf(stderr, "cd: HOME environment variable not set\n");
+	g_exit_status = 1;
 	return (0);
 }
 
-// Get the directory to change to
 static char	*get_directory(t_ppl *ppl)
 {
 	t_envnode	*home;
@@ -38,7 +49,6 @@ static char	*get_directory(t_ppl *ppl)
 	return (dir);
 }
 
-// Change directory to the specified directory
 static int	change_directory(char *dir, t_ppl *ppl)
 {
 	t_envnode	*pwd;
@@ -48,6 +58,8 @@ static int	change_directory(char *dir, t_ppl *ppl)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		fprintf(stderr, "cd: %s: %s\n", dir, strerror(errno));
+		g_exit_status = 1;
+		ppl->pp_exit = 1;
 		return (EXIT_FAILURE);
 	}
 	pwd = ppl->pp_list_env;
@@ -64,7 +76,6 @@ static int	change_directory(char *dir, t_ppl *ppl)
 	return (EXIT_SUCCESS);
 }
 
-// Change directory to the previous directory
 static int	change_to_previous_directory(t_ppl *ppl)
 {
 	t_envnode	*oldpwd;
@@ -79,15 +90,20 @@ static int	change_to_previous_directory(t_ppl *ppl)
 	if (oldpwd == NULL)
 	{
 		fprintf(stderr, "cd: OLDPWD not set\n");
+		g_exit_status = 1;
 		return (EXIT_FAILURE);
 	}
 	if (change_directory(oldpwd->value, ppl) == -1)
+	{
+		ppl->pp_exit = 1;
+		g_exit_status = 1;
+		printf("%d\n", g_exit_status);
 		return (-1);
+	}
 	printf("%s\n", oldpwd->value);
 	return (EXIT_SUCCESS);
 }
 
-// Change the current working directory
 int	ft_cd(t_ppl **ppl)
 {
 	char	*dir;
@@ -99,6 +115,8 @@ int	ft_cd(t_ppl **ppl)
 	if (dir == NULL)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		g_exit_status = 1;
+		(*ppl)->pp_exit = 1;
 		msg_error(dir, 0);
 		return (EXIT_FAILURE);
 	}

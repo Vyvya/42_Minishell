@@ -1,20 +1,16 @@
-#include"../../headers/minishell.h"
-// t_builtin	builtin_cmds[11];
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:55:47 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/15 21:55:49 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// 	builtin_cmds[11] = \
-// 	{
-// 	{"pwd", &ft_pwd}, //PWD
-// 	{"PWD", &ft_pwd},
-// 	{"cd", &ft_cd}, //CD
-// 	{"echo", &ft_echo}, //ECHO
-// 	{"ECHO", &ft_echo},
-// 	{"unset", &ft_unset},
-// 	{"export", &ft_export},
-// 	{"env", &ft_env}, //ENV
-// 	{"ENV", &ft_env},
-// 	{"exit", &ft_exit},
-// 	{NULL, NULL}
-// 	};
+#include"../../headers/minishell.h"
 
 int	check_if_builtin(char *first_cmd)
 {

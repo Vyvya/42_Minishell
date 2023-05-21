@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 22:34:17 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 17:00:50 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 static void	history_log(char *line, int fd)
@@ -47,14 +59,14 @@ int	main(int argc, char **argv, char **envp)
 		perror("tcgetattr");
 	if (argc != 1 || !argv || !envp)
 	{
-		printf("Error arguments\n");
+		error_args();
 		return (-1);
 	}
 	mini_envp = duplicate_env(envp);
 	if (!mini_envp)
 	{
-		printf("Failed to create my_environment list\n");
-		return (1);
+		error_env();
+		return (-1);
 	}
 	while (1)
 		prompt(line, mini_envp);

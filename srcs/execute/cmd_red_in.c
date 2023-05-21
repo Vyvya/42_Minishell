@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_red_in.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vg <vg@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 22:03:54 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 01:25:03 by vg               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 int	ft_handle_redir_in(t_ppl **new_ppl, t_token **ptr_cmd_red)
@@ -18,10 +30,7 @@ int	ft_handle_redir_in(t_ppl **new_ppl, t_token **ptr_cmd_red)
 		{
 			fd_in = open((*ptr_cmd_red)->next->content, O_RDONLY);
 			if (fd_in == -1)
-			{
-				printf(GREEN "error\n" RS);
-				return (-1);
-			}
+				return (2);
 		}
 	}
 	(*new_ppl)->pp_fd_in = fd_in;

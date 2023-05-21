@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 21:53:11 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 22:51:14 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
-static void	error_path_cmd(t_ppl *ppl)
+void	error_path_cmd(t_ppl *ppl)
 {
 	ppl->pp_exit = 127;
 	g_exit_status = ppl->pp_exit;
@@ -49,13 +61,13 @@ int	execute_fork_cmd(t_ppl *ppl)
 {
 	char	*cmd_path;
 
+	signal(SIGINT, SIG_IGN);
 	cmd_path = NULL;
 	ppl->pp_pid = fork();
 	if (ppl->pp_pid == 0)
 	{
-		dup_fds(&ppl);
-		if (ppl->pp_red_status == 1)
-			dup_red_fds(&ppl);
+		signals_default();
+		manage_dup(&ppl);
 		if (check_if_builtin(ppl->pp_first_cmd) == 0)
 		{
 			close_all_fds(&ppl);
@@ -66,37 +78,9 @@ int	execute_fork_cmd(t_ppl *ppl)
 			error_path_cmd(ppl);
 		close_all_fds(&ppl);
 		execve(cmd_path, (ppl)->ppl_cmd, (ppl)->pp_arr_env);
-		msg_error("minishell_VH: error executing command", errno);
+		msg_error("minishell_VH: is a directory ", errno);
 	}
 	else
 		finish_exec(&ppl);
 	return (0);
-}
-
-int	execute_pipe_cmd(t_ppl *ppl)
-{
-	int		i;
-	t_ppl	*first;
-
-	i = 0;
-	first = ppl;
-	dup_saved_stds(&ppl);
-	init_pipe(&ppl, ppl->ppl_idx);
-	while (ppl != NULL && i < ppl->ppl_idx)
-	{
-		if (ppl->pp_infile < 0 || ppl->pp_outfile < 0)
-		{
-			ppl = ppl->next;
-			continue ;
-		}
-		if (ppl->pp_heredoc_status == 1)
-			execute_heredoc(&ppl);
-		if (execute_fork_cmd(ppl))
-			msg_error("minishell_VH: error executing command", errno);
-		ppl = ppl->next;
-		i++;
-	}
-	ppl = first;
-	finish_multi_exec(&ppl);
-	return (EXIT_SUCCESS);
 }

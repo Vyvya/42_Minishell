@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_ppl.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 16:10:19 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 20:43:08 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 void	free_ppl(t_ppl **new_ppl, int *i)
@@ -5,7 +17,6 @@ void	free_ppl(t_ppl **new_ppl, int *i)
 	int	j;
 
 	j = 0;
-	printf("%p\n", &((*new_ppl)->pp_first_cmd));
 	my_free((*new_ppl)->pp_first_cmd);
 	while (j < *i)
 	{

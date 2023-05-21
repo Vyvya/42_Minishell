@@ -1,36 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 14:44:35 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/15 14:44:36 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-
-// void* my_my_malloc( size_t size)
-// {
-// 	void*		addr;
-// 	t_list*	node;
-
-// 	addr = my_malloc(size);
-// 	if (addr == NULL)
-// 	{
-// 		printf("Memory allocation failed!\n");
-// 		exit(1);
-// 	}
-// 	node = my_malloc(sizeof(t_list));
-// 	node->addr = addr;
-// 	node->next = ppline->my_malloc_head;
-// 	ppline->my_malloc_head = node;
-// 	return (addr);
-// }
-
-// void my_free_all(t_list **head)
-// {
-// 	t_list	*node;
-
-// 	node = *head;
-// 	while (*head != NULL)
-// 	{
-// 		node = *head;
-// 		*head = (*head)->next;
-// 		free(node->addr);
-// 		free(node);
-// 	}
-// }
 
 static t_list	**finder(void)
 {
@@ -60,7 +40,6 @@ void	*my_malloc(unsigned long size)
 		exit (1);
 	}
 	new_elem->content = buffer;
-	// printf("new_elem->content %p\n", new_elem->content);
 	new_elem->next = 0;
 	ft_lstadd_back(finder(), new_elem);
 	return (buffer);
@@ -79,7 +58,6 @@ int	my_free(void *ptr)
 	while (current)
 	{
 		next = current->next;
-		// printf("current->content%s\n", current->content);
 		if (current->content == ptr)
 		{
 			free(ptr);
@@ -107,29 +85,9 @@ void	destroy_all(void)
 	while (current)
 	{
 		next = current->next;
-		// printf("current->content22%s\n", current->content);
 		free(current->content);
 		free(current);
 		current = next;
 	}
 	*wrstart = 0;
-}
-
-
-void ft_putchar(char c)
-	{
-	write(1, &c, 1);
-	}
-
-int    ft_putstr(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_putchar(str[i]);
-		i++;
-	}
-	return(i);
 }

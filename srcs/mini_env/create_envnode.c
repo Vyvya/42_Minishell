@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_envnode.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgejno <vgejno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 16:09:02 by vgejno            #+#    #+#             */
+/*   Updated: 2023/05/16 16:09:03 by vgejno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"../../headers/minishell.h"
 
 static char	*create_content(char *content, t_envnode *my_node)
@@ -65,39 +77,3 @@ t_envnode	*create_mini_envvar_node(char *key, char *value, char *content)
 	my_node->next = NULL;
 	return (my_node);
 }
-
-// t_envnode	*create_mini_envvar_node(char *key, char *value, char *content)
-// {
-// 	t_envnode	*my_node;
-
-// 	my_node = NULL;
-// 	my_node = my_malloc(sizeof(t_envnode) * 1);
-// 	if (!my_node)
-// 		return (NULL);
-// 	my_node->key = ft_strdup(key);
-// 	if (!my_node->key)
-// 	{
-// 		my_free(my_node);
-// 		return (NULL);
-// 	}
-// 	my_node->content = ft_strdup(content);
-// 	if (!my_node->content)
-// 	{
-// 		my_free(my_node->content);
-// 		my_free(my_node);
-// 		return (NULL);
-// 	}
-// 	if (value == NULL)
-// 		my_node->value = NULL;
-// 	else
-// 		my_node->value = ft_strdup(value);
-// 	if (!my_node->value)
-// 	{
-// 		my_free(my_node->value);
-// 		my_free(my_node);
-// 		return (NULL);
-// 	}
-// 	my_node->prev = NULL;
-// 	my_node->next = NULL;
-// 	return (my_node);
-// }
